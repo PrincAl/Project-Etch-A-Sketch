@@ -1,13 +1,33 @@
-const container = document.getElementById("container");
+var n=16; //take grid column value as you want
 
-function makeRows(rows, cols) {
-  container.style.setProperty('--grid-rows', rows);
-  container.style.setProperty('--grid-cols', cols);
-  for (c = 0; c < (rows * cols); c++) {
-    let cell = document.createElement("div");
-    cell.innerText = (c + 1);
-    container.appendChild(cell).className = "grid-item";
-  };
-};
+const bigContainer = document.querySelector('.bigContainer')
+
+for(var i = 1; i < n; i++) {
+    bigContainer.innerHTML+='<div class="row">';
+
+    for(j = 0; j < n; j++) {
+        bigContainer.innerHTML+='<div class="smallBox">';
+    }
+}
+
+
+const smallBoxes = document.querySelectorAll('.smallBox');
+
+[...smallBoxes].forEach(smallBox => {
+  smallBox.addEventListener('mouseover', () => {
+      smallBox.classList.add('hover');
+  });
+})
+
+
+
+
+
+
+
+
+
+
+
 
 makeRows(16, 16);
