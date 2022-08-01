@@ -1,33 +1,51 @@
-var n=16; //take grid column value as you want
+const container = document.querySelector('.container')
+const sizeEl = document.querySelector('.size')
+let size = sizeEl.value
+const color = document.querySelector('.color')
+const resetBtn = document.querySelector('.btn')
 
-const bigContainer = document.querySelector('.bigContainer')
+let draw = false
 
-for(var i = 1; i < n; i++) {
-    bigContainer.innerHTML+='<div class="row">';
+function populate(size){
+    container.style.setProperty('--size', size)
+    for (let i = 0 ; i < size * size; i++){
+        const div = document.createElement('div')
+        div.classList.add('pixel')
 
-    for(j = 0; j < n; j++) {
-        bigContainer.innerHTML+='<div class="smallBox">';
+        div.addEventListener('mouseover', function(){
+            if (!draw) return
+            div.style.backgroundColor = color.value
+        })
+
+        div.addEventListener('mousedown', function(){
+            div.style.backgroundColor = color.value
+        })
+
+        container.appendChild(div)
     }
 }
 
-
-const smallBoxes = document.querySelectorAll('.smallBox');
-
-[...smallBoxes].forEach(smallBox => {
-  smallBox.addEventListener('mouseover', () => {
-      smallBox.classList.add('hover');
-  });
+window.addEventListener('mousedown', function(){
+    draw=true
 })
 
 
+window.addEventListener('mouseup', function(){
+    draw=false
+})
 
 
+resetBtn.addEventListener('click', reset)
 
 
+sizeEl.addEventListener('keyup', function(){
+    size = sizeEl.value
+    reset()
+})
 
+function reset(){
+        container.innerHTML = ''
+        populate(size)
+}
 
-
-
-
-
-makeRows(16, 16);
+populate(size)
